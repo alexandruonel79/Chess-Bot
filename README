@@ -1,0 +1,67 @@
+Proiect 2023 - Crazyhouse Chess
+
+Grupa: Toti membrii apartin grupei 322CB
+Capitan: Sirbu Vlad Stefan
+Coechipieri: Simion George Vlad, Onel Alexandru Gabriel, Mihai Dragos Andrei
+
+Instructiuni de compilare:  Avem un Makefile pentru Java dat de scheletul temei pe care l am 
+modificat
+
+Ordinea comenzilor : make clean, make(pentru a compila) si make run.
+
+    Structura proiectului:
+
+    Primul pas a fost salvarea tablei de joc, am creat o clasa abstracta Piece de unde am creat 
+clasele Pawn, Queen, Rook, Knight, King, Bishop, EnPassant. Tabla de joc este reprezentata printr o
+matrice de tip Piece. Pentru aceasta am creat o clasa denumita Board, unde avem mai multe metode 
+precum Encode si Decode care fac translatia din String ul primit „a7a5” il modifica in int,  ‚a’ 
+reprezinta 0. Functia recordMove inregistreaza miscarile in functie de tipul acestora, ne am 
+folosit de functiile date de clasa Move din schelet pentru identificare si pentru fiecare caz 
+actualizeaza tabla. Pentru tabla de joc am folosit un design pattern, Singleton invatat la POO, 
+pentru a avea o singura instanta de tabla in toate clasele.
+    In clasa Bot am initializat arrayuri pentru toate piesele pentru algoritmul aplicat in alegerea 
+miscarilor. Clasa Bot contine metoda calculateNextMove care calculeaza urmatoarele mutari astfel: 
+prima parcurgere a fost parcurgerea pieselor luate deoarece se pot repune pe tabla datorita modului 
+crazyhouse. Ulterior verifica toate piesele prin parcurgerea propriului array si verifica prin 
+metoda movePiece suprascrisa de fiecare piesa. Daca a gasit o mutare valida o va trimite pe 
+aceasta, in schimb daca nu gaseste nimic trece la urmatorul tip de piesa si executa aceleasi 
+verificari. Mutarile normale de sah le am ales in felul acesta: pentru pioni am ales varianta de a 
+prioritiza mersul inainte, daca acesta nu este posibil botul se uita daca poate ataca in stilul 
+unui pion, adica pe diagonala inainte. Prima mutare o va executa prin saritura a 2 casute daca este 
+posibil intotdeauna (avem o variabila care retine daca pionul s a miscat). Pentru ture am gandit 
+astfel incat sa prioritizeze luarea unei piese din apropiere, am lasat tura sa avanseze doar cu o 
+casuta, vom continua in etapa urmatoare cu un algoritm mai inteligent. Pentru nebuni am aplicat 
+aceeasi idee ca la ture, doar am modificat modalitatea de deplasare a piesei. Pentru cal este 
+aceeasi idee ca la celelalte. Singura diferita este regina, care merge la maxim in directia unde 
+este posibil, dar nu prioritizeaza capturarea unei piese inamice. 
+    Rocada am interpretat o in clasa Board(cazul cand oponentul face rocada) am verificat daca 
+miscarea este normala, atunci putem verifica daca este posibila o rocada mica sau mare. Am tratat 
+cele 2 cazuri si am modificat in matricea board. 
+    Rocada am facut o si in Bot in metoda checkKingStatus, unde botul poate sa faca el rocada. 
+    Pentru EnPassant am creat o noua clasa EnPassant in care mi am definit un nou tip de obiect 
+pentru a marca pe tabla EnPassant ul disponibil. Am verificat in clasa Bot daca suntem in acest caz 
+sa luam piesa care ca fi in spatele piesei actuale. In clasa Pawn am verificat daca piesa pe care o 
+putem ataca este in stare de EnPassant ca sa stie daca o poate ataca botul.
+    Din cauza timpului, nu a fost posibila tratarea cazului de sah cand regele trebuie sa fie 
+aparat de alta piesa, astfel daca regele nu se poate misca, o sa dea resign. 
+    Pentru a evita cazul de repetitie a unei miscari de trei ori, am retinut ultimele pozitii si 
+inainte de momentul in care se va face o noua mutare, botul verifica daca a mai repetat-o. 
+    Abordarea algoritmica a etapei este destul de simpla deoarece nu avem inca un algoritm 
+inteligent, deocamdata botul parcurge toate array urile de Piese care au o dimensiune de maxim 16, 
+functia care verifica mutarile posibile este tot constanta deoarece sunt doar if uri de verificare, 
+deci complexitatea din punct de vedere al timpului este O(1), iar stocarea este tot O(1). Matricea 
+de tip Piece in care salvam tot jocul este de 8x8 deci tot constant.  Astfel, complexitatea lui 
+calculateNextMove este constanta. Functii care sa consume mai mult nu avem.
+    Sursele de inspiratie au fost de pe youtube, unde am urmarit mai multe videoclipuri de la care 
+am ajuns la concluzia ca ar fi util sa avem array uri pentru piese, numerotarea matricei este o 
+alta idee pe care nu am implementat o inca. In rest nu am avut nevoie deoarece nu am implementat 
+ceva inteligent. Responsabilitatile au fost impartite in mod egal, am lucrat 2 cate 2. In 
+principal, Simion Vlad cu Onel Alexandru si Sirbu Vlad cu Mihai Dragos.  Task urile principale au 
+fost salvarea tablei, logica pieselor(pion, regina, nebun, etc), rocada, enPassant, sahul pentru 
+rege. La salvarea tablei s au axat mai mult primii 2, dar mai putin la sahul pentru rege. Pentru 
+logica pieselor ne am impartit piesele, dar au cam aceeasi logica. Pentru rocada primii 2 mai mult, 
+dar mai putin  la enPassant. Astfel ultimii 2 au implementat enPassant si sahul pentru rege mai 
+mult. Ca numar de ore toti am stat in mod egal deoarece lucram simultan pe discord, am folosit si 
+github dar si partajarea de fisiere intre noi. A fost o cooperare frumoasa deoarece toti suntem 
+prieteni si a fost interesant sa lucram in echipa.
+
