@@ -1,7 +1,7 @@
 # Chess-Bot
 Proiect 2023 - Crazyhouse Chess
 
-Proiect realizat in echipa alaturi de cativa colegi. Botul este capabil sa execute mutari 
+Proiect este realizat in echipa alaturi de cativa colegi. Botul este capabil sa execute mutari 
 pentru orice situatie, dar nu face alegeri inteligente. Urmatorul pas este sa adaugam un algoritm
 de tip MinMax.
 
